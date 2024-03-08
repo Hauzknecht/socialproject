@@ -1,0 +1,35 @@
+{% load static %}
+<html>
+    <head>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="{% static 'users/style.css' %}">
+        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <nav class="shadow">
+            <div class="px-4 mx-auto">
+                <div class="flex items-center justify-between">
+                    <!--Website LOGO-->
+                    <div>
+                        <a class="flex items-center" href="{% url 'feed' %}">
+                            <img class="h-8 w-8 mr-2" src="{% static 'users/images/social.png' %}" alt="home">
+                            <span class="font-semibold text-lg text-gray-500">Social App</span>
+                        </a>
+                    </div>
+                    <!--Website ITEMS-->
+                    <div class="items-center flex space-x-1">
+                        {% if request.user.is_authenticated %}
+                        <a class="py-4 px-2 text-lg text-gray-500 font-semibold" href="{% url 'logout' %}">Logout</a>
+                        <a class="py-4 px-2 text-lg text-gray-500 font-semibold" href="{% url 'edit' %}">Profile</a>
+                        {% else %}
+                        <a class="py-4 px-2 text-lg text-gray-500 font-semibold" href="{% url 'login' %}">Login</a>
+                        {% endif %}
+                        <a class="bg-lime-500 py-4 px-2 text-lg text-gray-500 font-semibold" href="{% url 'create' %}">Create Post</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>
