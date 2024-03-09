@@ -8,11 +8,15 @@ from django.shortcuts import get_object_or_404
 @login_required
 def post_create(request):
     if request.method == 'POST':
+        print("got here1")
         form = PostCreateForm(data=request.POST, files=request.FILES)
+        print("got here2")
         if form.is_valid():
+            print("got here3")
             new_item = form.save(commit=False)
             new_item.user = request.user
             new_item.save()
+            return redirect('feed')
     else:
         form = PostCreateForm(data=request.GET)
     return render(request, 'posts/create.html', {'form':form})
